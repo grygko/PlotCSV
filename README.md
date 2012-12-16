@@ -1,4 +1,4 @@
 plotCSV
 =======
 
-plot data file containing labeled columns with numerical data
+Plot data file containing labeled columns with numerical data
