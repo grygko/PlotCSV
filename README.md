@@ -1,4 +1,4 @@
-plotCSV
+PlotCSV
 =======
 
-Plot data file containing labeled columns with numerical data using matplotlib
+Utilities for reading CSV files and plotting data
