@@ -6,29 +6,28 @@ the Python csv library
 
 import csv
 
-def dict_from_csv(fobj, delim=' '):
-    """Return dictionary from a CSV file
+def dict_from_csv(fobj, d={}, delim=' '):
+    """Modify a dictionary with data from a CSV file
 
     where field values can be converted to the float type
     
     Args:
         fobj: file object
-        keys (list): list of keys
+        d (dict): reference to a dictionary
         delim (string): delimiter
     """
     reader = csv.reader(fobj)
     line = reader.next() # read 1st line
     keys = line[0].split()
 
-    res_dict = {}
     for k in keys:
-        res_dict[k] = []
+        d[k] = []
 
     for row in reader:
         values = row[0].split()
         for k, v in zip(keys, values):
-            res_dict[k].append(float(v))
-    return res_dict
+            d[k].append(float(v))
+    return None
 
 def dict_from_csv2(fobj, delim=' '):
     """Same as dict_from_csv but without using python's split() function

@@ -3,6 +3,7 @@
 """Module contains utility functions for plotting data using the Matplotlib
 library
 """
+# TODO: plot from multiple files (on dictionary read?)
 
 import matplotlib.pyplot as plt
 
