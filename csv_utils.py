@@ -5,6 +5,7 @@ the Python csv library
 """
 
 import csv
+import numpy as np
 
 def dict_from_csv(fobj, d={}, delim=' '):
     """Modify a dictionary with data from a CSV file
@@ -27,9 +28,13 @@ def dict_from_csv(fobj, d={}, delim=' '):
         values = row[0].split()
         for k, v in zip(keys, values):
             d[k].append(float(v))
+
+    # convert to ndarray
+    for k in d.keys():
+        d[k] = np.asarray(d[k], dtype=float)
     return None
 
-def dict_from_csv2(fobj, delim=' '):
+def dict_from_csv2(fobj, d={}, delim=' '):
     """Same as dict_from_csv but without using python's split() function
     """
     reader = csv.reader(fobj, skipinitialspace=True, delimiter=' ')
@@ -40,14 +45,13 @@ def dict_from_csv2(fobj, delim=' '):
     if keys[-1] == '':
         keys = keys[:-1] # what if empty string is not the last?
 
-    res_dict = {}
     for k in keys:
-        res_dict[k] = []
+        d[k] = []
 
     for row in reader:
         for k, v in zip(keys, row):
-            res_dict[k].append(float(v))
-    return res_dict
+            d[k].append(float(v))
+    return None
 
 def list_from_csv(fobj, labels, delim=' '):
     """Return a list from a CSV file
@@ -63,12 +67,16 @@ def list_from_csv(fobj, labels, delim=' '):
     return csv_list
 
 if __name__ == '__main__':
+    data = {}
     with open('p26_static_n1_e1.dat', 'rb') as f:
-        data_dict = dict_from_csv(f)
-    print data_dict['TIMEXXX']
+        dict_from_csv(f, data)
+    print data['TIMEXXX']
+
+    data2 = {}
     with open('p26_static_n1_e1.dat', 'rb') as f:
-        data_dict = dict_from_csv2(f)
-    print data_dict['TIMEXXX']
+        dict_from_csv2(f, data2)
+    print data2['TIMEXXX']
+
     with open('p26_static_n1_e1.dat', 'rb') as f:
         data_list = list_from_csv(f, ['TIMEXXX', 'SX'])
     print data_list
